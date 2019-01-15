@@ -26,8 +26,8 @@ function activateTooltipBehavior(container) {
       y: targetPosition.top - containerPosition.top,
     };
 
-    tooltipElement.left = x;
-    tooltipElement.top = y;
+    tooltipElement.left = targetShift.x;
+    tooltipElement.top = targetShift.y;
   }
 
   container.addEventListener('mouseover', function (event) {
