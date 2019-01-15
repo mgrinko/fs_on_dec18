@@ -1,40 +1,56 @@
 'use strict';
 
-function initializeMenu(element) {
-  let textField = element.querySelector('.menu__new-item-text');
-  let addButton = element.querySelector('.menu__add-item-button');
-  let itemsList = element.querySelector('.menu__list');
+function activateTooltipBehavior(container) {
+  let tooltips = Array.from(
+    document.querySelectorAll('[data-tooltip]')
+  );
 
-  addButton.onclick = function () {
-    if (!textField.value) {
+  container.style.position = 'relative';
+
+  container.insertAdjacentHTML('beforeend', `
+    <div class="tooltip tooltip--hidden"></div>
+  `);
+
+  let tooltipElement = container.lastElementChild;
+
+
+  function setTooltipFor(tooltipTarget) {
+    tooltipElement.classList.remove('tooltip--hidden');
+    tooltipElement.innerHTML = tooltipTarget.dataset.tooltip;
+
+    let containerPosition = container.getBoundingClientRect();
+    let targetPosition = tooltipTarget.getBoundingClientRect();
+
+    let targetShift = {
+      x: targetPosition.left - containerPosition.left,
+      y: targetPosition.top - containerPosition.top,
+    };
+
+    tooltipElement.left = x;
+    tooltipElement.top = y;
+  }
+
+  container.addEventListener('mouseover', function (event) {
+    let tooltipTarget = event.target.closest('[data-tooltip]');
+
+    if (!tooltipTarget || !container.contains(tooltipTarget)) {
       return;
     }
 
-    itemsList.insertAdjacentHTML(
-      'beforeend',
-      `
-        <li class="menu__item">
-          <b>
-            ${ textField.value }
-          </b>
-        </li>
-      `
-    );
+    setTooltipFor(tooltipTarget);
+  });
 
-    textField.value = '';
-  };
+  container.addEventListener('mouseout', function(event) {
+    let tooltipTarget = event.target.closest('[data-tooltip]');
 
-  itemsList.addEventListener('click', function(event) {
-    let item = event.target.closest('.menu__item');
-
-    if (!item || !itemsList.contains(item)) {
+    if (!tooltipTarget || !container.contains(tooltipTarget)) {
       return;
     }
 
-    console.log(item.innerText);
+    tooltipElement.classList.add('tooltip--hidden');
+    tooltipElement.innerHTML = '';
   });
 }
 
-initializeMenu(
-  document.querySelector('.menu')
-);
+
+activateTooltipBehavior(document.body);
