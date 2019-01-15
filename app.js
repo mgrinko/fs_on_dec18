@@ -21,13 +21,15 @@ function activateTooltipBehavior(container) {
     let containerPosition = container.getBoundingClientRect();
     let targetPosition = tooltipTarget.getBoundingClientRect();
 
-    let targetShift = {
-      x: targetPosition.left - containerPosition.left,
-      y: targetPosition.top - containerPosition.top,
-    };
+    let x = targetPosition.left - containerPosition.left;
+    let y = targetPosition.top - containerPosition.top - tooltipElement.offsetHeight;
 
-    tooltipElement.left = targetShift.x;
-    tooltipElement.top = targetShift.y;
+    if (y + containerPosition.top < 0) {
+      y = targetPosition.bottom - containerPosition.top;
+    }
+
+    tooltipElement.style.left = x + 'px';
+    tooltipElement.style.top = y + 'px';
   }
 
   container.addEventListener('mouseover', function (event) {
