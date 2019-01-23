@@ -2,36 +2,14 @@
 <html lang="en" >
 <head>
   <meta charset="utf8">
-  <script src="app.js" defer></script>
-  <style>
-    body {
-      height: 2000px;
-      padding: 30px;
-      /* подсказка должна работать независимо от прокрутки */
-    }
-
-    .tooltip {
-      position: absolute;
-      width: 100px;
-      border: 1px solid blue;
-    }
-
-    .tooltip--hidden {
-      display: none;
-    }
-  </style>
+  <script src="throttle.js" defer></script>
+  <style> body {height: 1000px;}</style>
 </head>
 <body>
 
-  <input data-tooltip="123">
-
-  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
-  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
-
-  <button data-tooltip="подсказка длиннее, чем элемент">Короткая кнопка</button>
-  <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
-
-  <p>Прокрутите страницу, чтобы ссылки были вверху и проверьте, правильно ли показываются подсказки.</p>
+<input type="text">
+<p>Real position: <span id="real"></span></p>
+<p>Throttle position: <span id="throttle"></span></p>
 
 </body>
 </html>

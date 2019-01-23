@@ -1,0 +1,32 @@
+script {
+  createCounter: #f_createCounter
+  counter1: #f_counter1
+  counter2: #f_counter2
+}
+
+--------
+#LE_createCounter_run1 {
+  name: '1111'
+  count: 0,
+
+  counter: #f_counter1
+}
+
+#f_counter1 {
+  [[scope]]: #LE_createCounter_run1
+}
+
+------
+#LE_createCounter_run2 {
+  name: '2222'
+  count: 0,
+
+  counter: #f_counter2
+}
+
+#f_counter2 {
+  [[scope]]: #LE_createCounter_run2
+}
+------
+
+
