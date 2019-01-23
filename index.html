@@ -2,14 +2,19 @@
 <html lang="en" >
 <head>
   <meta charset="utf8">
-  <script src="throttle.js" defer></script>
-  <style> body {height: 1000px;}</style>
+  <script src="menu.js" defer></script>
+
+  <style>
+    .menu--closed .menu__items-list {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-<input type="text">
-<p>Real position: <span id="real"></span></p>
-<p>Throttle position: <span id="throttle"></span></p>
+<div class="menu menu--closed" id="menu1"></div>
+
+<div class="menu" id="menu2"></div>
 
 </body>
 </html>
