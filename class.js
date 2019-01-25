@@ -10,6 +10,9 @@ class Component {
   }
 }
 
+console.log(Component.prototype);
+
+
 class Menu extends Component {
   constructor(...args) {
     super(...args);
