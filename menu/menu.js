@@ -9,17 +9,13 @@ Component.prototype.hide = function () {
   this._element.hidden = true;
 };
 
-
 function Component({ element }) {
   this._element = element;
   this._id = Math.random();
 }
 
-
 function Menu({ element, title, items }) {
-  // this === menu1
   Component.call(this, { element });
-
 
   this._title = title;
   this._items = items;
@@ -28,6 +24,13 @@ function Menu({ element, title, items }) {
 }
 
 Menu.prototype.__proto__ = Component.prototype;
+
+Menu.prototype.hide = function () {
+  // this === menu1
+
+  console.log(this._title + ' is hidden');
+  Component.prototype.hide.call(this);
+};
 
 Menu.prototype._render = function() {
   this._element.innerHTML = `
@@ -52,31 +55,4 @@ let menu1 = new Menu({
   items: [1, 2, 3]
 });
 
-console.log(menu1);
-
-
-console.log();
-
-
-
-
-
-
-
-
-
-
-
-
-
-let menu2 = new Menu({
-  element: document.querySelector('#menu2'),
-  title: 'My sdhfgjdsgfhdf',
-  items: [1, 2, 3, 5, 6]
-});
-
-console.log(menu1);
-
-setTimeout(() => {
-  menu1.hide()
-}, 1000);
+menu1.hide();
