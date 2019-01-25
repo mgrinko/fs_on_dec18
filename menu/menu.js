@@ -1,5 +1,18 @@
 'use strict';
 
+function Component({ element }) {
+  this._element = element;
+}
+
+Component.prototype.show = function () {
+  this._element.hidden = false;
+};
+
+Component.prototype.hide = function () {
+  this._element.hidden = true;
+};
+
+
 
 function Menu({ element, title, items }) {
   this._element = element;
@@ -8,6 +21,10 @@ function Menu({ element, title, items }) {
 
   this._render();
 }
+
+Menu.prototype.__proto__ = Component.prototype;
+Menu.prototype = { __proto__: Component.prototype };
+Menu.prototype = Object.create(Component.prototype);
 
 Menu.prototype._render = function() {
   this._element.innerHTML = `
@@ -38,3 +55,8 @@ let menu2 = new Menu({
   items: [1, 2, 3, 5, 6]
 });
 
+console.log(menu1);
+
+setTimeout(() => {
+  menu1.hide()
+}, 1000);
