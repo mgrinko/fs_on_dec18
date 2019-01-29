@@ -10,7 +10,6 @@ class Component2 {
   show() {
     this._element.hidden = false;
   }
-
   hide() {
     this._element.hidden = true;
   }
@@ -30,7 +29,6 @@ class Menu2 extends Component2 {
     console.log(this._title + ' is hidden');
     super.hide();
   }
-
   _render() {
     this._element.innerHTML = `
       <h2 class="menu__title">${ this._title }</h2>
@@ -43,7 +41,6 @@ class Menu2 extends Component2 {
       </ul>
     `;
   }
-
   toggle() {
     this._element.classList.toggle('menu--closed');
   }
@@ -78,7 +75,7 @@ function Menu({ element, title, items }) {
   this._render();
 }
 
-Menu.prototype.__proto__ = Component.prototype;
+Menu.prototype.__proto__ = Component2.prototype;
 
 Menu.prototype.hide = function () {
   console.log(this._title + ' is hidden');
@@ -102,7 +99,7 @@ Menu.prototype.toggle = function () {
   this._element.classList.toggle('menu--closed');
 };
 
-let menu1 = new Menu({
+let menu1 = new Menu2({
   element: document.querySelector('#menu1'),
   title: 'My 123',
   items: [1, 2, 3]
