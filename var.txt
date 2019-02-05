@@ -1,7 +1,33 @@
 script {
-  user: #1
-  f: #f1
+  test: #f1
+  user1: #1
 }
 
 
+#1 {
+  name: 'Petya',
+  wife: #3
+}
 
+#f1 {
+ [[code]]
+}
+
+----------------
+#LE_f1_run0 {
+  user: #1
+}
+
+#2 {
+ name: 'Tanya'
+}
+
+----------------
+
+#LE_f1_run0 {
+  user: #1
+}
+
+#3 {
+ name: 'Natasha'
+}

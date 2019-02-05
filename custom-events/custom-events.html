@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="custom-events.js" defer></script>
+</head>
+<body>
+
+<tabs>
+  <tab title="qweqwe">qweqwe</tab>
+  <tab title="qweqwe">qweqwe</tab>
+  <tab title="qweqwe">qwe</tab>
+  <tab title="qweqwe">qweqwe</tab>
+</tabs>
+
+<div data-component="tabs"></div>
+
+<script>
+  new Tabs({
+    element: document.querySelector('tabs'),
+    tabs: [
+      { title: 1, content: 2 },
+      { title: 1, content: 2 },
+      { title: 1, content: 2 },
+      { title: 1, content: 2 },
+    ]
+  });
+</script>
+
+</body>
+</html>
