@@ -1,3 +1,6 @@
 import people from './people.js';
 
-console.log(people);
+console.log(
+  people
+);
+
