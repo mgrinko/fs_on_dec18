@@ -4,6 +4,8 @@ const STATUS_PENDING = 0;
 const STATUS_FULLFILLED = 1;
 const STATUS_REJECTED = 2;
 
+
+
 class MyPromise {
   constructor(behaviourFunction) {
     this._status = STATUS_PENDING;
@@ -18,14 +20,23 @@ class MyPromise {
   }
 
   then(onSuccess, onError) {
+    let myOnSuccess;
+
+    let newPromise = new MyPromise((resolve, reject) => {
+      myOnSuccess = (data) => {
+        let result = onSuccess(data);
+        resolve(result);
+      };
+    });
+
     switch (this._status) {
       case STATUS_PENDING:
-        onSuccess && this._successCallbacks.push(onSuccess);
+        onSuccess && this._successCallbacks.push(myOnSuccess);
         onError && this._errorCallbacks.push(onError);
         break;
 
       case STATUS_FULLFILLED:
-        onSuccess && onSuccess(this._result);
+        onSuccess && myOnSuccess(this._result);
         break;
 
       case STATUS_REJECTED:
@@ -33,7 +44,7 @@ class MyPromise {
         break;
     }
 
-    return new MyPromise(() => {});
+    return newPromise;
   }
 
   catch(onError) {
@@ -41,8 +52,6 @@ class MyPromise {
   }
 
   _resolve(data) {
-    console.log('Rsolved with ' + data);
-
     if (STATUS_PENDING !== this._status) {
       return;
     }
@@ -71,29 +80,23 @@ class MyPromise {
   }
 }
 
-
 const promise1 = new MyPromise(
-  (resolve, reject) => resolve(123)
-);
-
-promise1.then(
-  (data) => console.log('1', data),
-  (error) => console.warn('Error 1', error),
-);
-
-promise1.catch(
-  (error) => console.warn('Error 2', error),
+  (resolve, reject) => {
+    setTimeout(() => resolve(123), 1000);
+  }
 );
 
 promise1
   .then((data) => {
-    console.log('2', data);
+    console.log('main', data);
 
     return 456;
   })
   .then((data) => {
-    console.log('Chained callback', data);
+    console.log('Chained', data);
   });
+
+
 
 
 
