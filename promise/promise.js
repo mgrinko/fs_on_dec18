@@ -5,10 +5,12 @@ const STATUS_FULLFILLED = 1;
 const STATUS_REJECTED = 2;
 
 class MyPromise {
-  constructor() {
+  constructor(behaviourFunction) {
     this.status = STATUS_PENDING;
     this.result = null;
     this.successCallbacks = [];
+
+    behaviourFunction(this._resolve.bind(this));
   }
 
   then(callback) {
@@ -22,7 +24,7 @@ class MyPromise {
     }
   }
 
-  resolve(data) {
+  _resolve(data) {
     console.log('Rsolved with ' + data);
 
     if (STATUS_PENDING !== this.status) {
@@ -39,17 +41,19 @@ class MyPromise {
 }
 
 
-const promise1 = new MyPromise();
+const promise1 = new MyPromise(
+  (resolve) => resolve(123)
+);
 
 promise1.then((data) => console.log('1', data));
 promise1.then((data) => console.log('2', data));
-
-promise1.resolve(123);
 
 
 setTimeout(() => {
   promise1.then((data) => console.log('3', data));
 
-  promise1.resolve(456);
-}, 3000);
+  promise1._resolve(456);
+
+  promise1.then((data) => console.log('4', data));
+}, 5000);
 
