@@ -11,7 +11,10 @@ class MyPromise {
     this._successCallbacks = [];
     this._errorCallbacks = [];
 
-    behaviourFunction(this._resolve.bind(this));
+    behaviourFunction(
+      this._resolve.bind(this),
+      this._reject.bind(this)
+    );
   }
 
   then(onSuccess, onError) {
@@ -49,11 +52,26 @@ class MyPromise {
       callback(data);
     }
   }
+
+  _reject(error) {
+    console.log('Rejected with ' + error);
+
+    if (STATUS_PENDING !== this._status) {
+      return;
+    }
+
+    this._status = STATUS_REJECTED;
+    this._result = error;
+
+    for (let callback of this._errorCallbacks) {
+      callback(error);
+    }
+  }
 }
 
 
 const promise1 = new MyPromise(
-  (resolve) => resolve(123)
+  (resolve, reject) => reject(999)
 );
 
 promise1.then(
@@ -68,11 +86,4 @@ promise1.catch(
 promise1.then((data) => console.log('2', data));
 
 
-setTimeout(() => {
-  promise1.then((data) => console.log('3', data));
-
-  promise1._resolve(456);
-
-  promise1.then((data) => console.log('4', data));
-}, 5000);
 
