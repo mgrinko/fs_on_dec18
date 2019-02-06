@@ -32,6 +32,8 @@ class MyPromise {
         onError && onError(this._result);
         break;
     }
+
+    return new MyPromise(() => {});
   }
 
   catch(onError) {
@@ -71,7 +73,7 @@ class MyPromise {
 
 
 const promise1 = new MyPromise(
-  (resolve, reject) => reject(999)
+  (resolve, reject) => resolve(123)
 );
 
 promise1.then(
@@ -83,7 +85,15 @@ promise1.catch(
   (error) => console.warn('Error 2', error),
 );
 
-promise1.then((data) => console.log('2', data));
+promise1
+  .then((data) => {
+    console.log('2', data);
+
+    return 456;
+  })
+  .then((data) => {
+    console.log('Chained callback', data);
+  });
 
 
 
