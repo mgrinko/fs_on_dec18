@@ -1,24 +1,15 @@
 'use strict';
 
-// class MyPromise {
-//   constructor() {
-//
-//   }
-// }
-//
-//
-// const promise1 = new MyPromise((resolve, reject) => {
-//
-// });
-
 const STATUS_PENDING = 0;
 const STATUS_FULLFILLED = 1;
 const STATUS_REJECTED = 2;
 
-const promise2 = {
-  status: STATUS_PENDING,
-  result: null,
-  successCallbacks: [],
+class MyPromise {
+  constructor() {
+    this.status = STATUS_PENDING;
+    this.result = null;
+    this.successCallbacks = [];
+  }
 
   then(callback) {
     if (STATUS_PENDING === this.status) {
@@ -29,23 +20,36 @@ const promise2 = {
     } else {
 
     }
-  },
+  }
 
   resolve(data) {
+    console.log('Rsolved with ' + data);
+
+    if (STATUS_PENDING !== this.status) {
+      return;
+    }
+
     this.status = STATUS_FULLFILLED;
     this.result = data;
 
     for (let callback of this.successCallbacks) {
-      callback(data)
+      callback(data);
     }
   }
-};
+}
 
 
-promise2.then((data) => console.log('1', data));
-promise2.then((data) => console.log('2', data));
+const promise1 = new MyPromise();
 
-promise2.resolve(123);
+promise1.then((data) => console.log('1', data));
+promise1.then((data) => console.log('2', data));
 
-promise2.then((data) => console.log('3', data));
+promise1.resolve(123);
+
+
+setTimeout(() => {
+  promise1.then((data) => console.log('3', data));
+
+  promise1.resolve(456);
+}, 3000);
 
