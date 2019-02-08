@@ -11,9 +11,9 @@ class Datatable {
     return `
       <thead>
         <tr>
-          ${ Object.keys(this._columnConfig).map(key => `
+          ${ Object.values(this._columnConfig).map(config => `
 
-            <th>${ key }</th>
+            <th>${ config.title }</th>
             
           `).join('') }
         </tr>
@@ -44,3 +44,10 @@ class Datatable {
     `;
   }
 }
+
+
+Object.values(this._columnConfig).map(config => `
+
+  <th>${ config.title }</th>
+  
+`).join('')

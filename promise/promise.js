@@ -86,15 +86,7 @@ const promise1 = new MyPromise(
   }
 );
 
-promise1
-  .then((data) => {
-    console.log('main', data);
 
-    return 456;
-  })
-  .then((data) => {
-    console.log('Chained', data);
-  });
 
 
 
