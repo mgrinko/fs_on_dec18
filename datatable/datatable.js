@@ -21,12 +21,12 @@ class Datatable {
     `;
   }
 
-  _renderItem() {
+  _renderItem(item) {
     return `
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        ${ Object.keys(this._columnConfig).map(key => `
+          <td>${ item[key] }</td>
+        `).join('') }
       </tr>
     `;
   }
@@ -44,10 +44,3 @@ class Datatable {
     `;
   }
 }
-
-
-Object.values(this._columnConfig).map(config => `
-
-  <th>${ config.title }</th>
-  
-`).join('')
